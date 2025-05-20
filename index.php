@@ -29,9 +29,11 @@ $validPassword = 'admin';
 $errorMessage = 'Invalid credentials. Please try again.';
 $successMessage = 'Login successful! Welcome, ' . htmlspecialchars($username) . '.';
 
-if ($username == $validUsername && $password == $validPassword) {
-    echo "{$successMessage}";
-} else {
-    echo "{$errorMessage}";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($username === $validUsername && $password === $validPassword) {
+        echo "$successMessage";
+    } else {
+        echo "$errorMessage";
+    }
 }
 ?>
