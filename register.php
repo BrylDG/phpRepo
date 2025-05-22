@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="register.php" method="$_GET">
+    <form action="registerScript.php" method="$_GET">
         <h1>Register</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
