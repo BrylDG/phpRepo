@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="index.php" method="$_POST">
+    <form action="login.php" method="$_GET">
         <h1>Login</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -21,19 +21,3 @@
 </body>
 
 </html>
-<?php
-$username = $_POST['username'] ?? '';
-$password = $_POST['password'] ?? '';
-$validUsername = 'admin';
-$validPassword = 'admin';
-$errorMessage = 'Invalid credentials. Please try again.';
-$successMessage = 'Login successful! Welcome, ' . htmlspecialchars($username) . '.';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($username === $validUsername && $password === $validPassword) {
-        echo "$successMessage";
-    } else {
-        echo "$errorMessage";
-    }
-}
-?>
