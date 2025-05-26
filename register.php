@@ -19,7 +19,7 @@ session_start();
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
 
-        <input type="submit" value="Register">
+        <input type="submit" name="register" value="Register">
     </form>
 </body>
 
@@ -30,6 +30,8 @@ if (isset($_GET["register"])) {
         $_SESSION["username"] = $_GET["username"];
         $_SESSION["password"] = $_GET["password"];
         echo "Registration successful! Welcome, " . htmlspecialchars($_SESSION["username"]) . ".";
+        header('Location: index.php');
+        exit();
     } else {
         echo "Missing credentials!";
     }
