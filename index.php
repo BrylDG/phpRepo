@@ -11,7 +11,7 @@ session_start();
 </head>
 
 <body>
-    <form action="index.php" method="$_POST">
+    <form action="index.php" method="post">
         <h1>Login</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -19,7 +19,7 @@ session_start();
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
 
-        <input type="submit" value="Login">
+        <input type="submit" name="login" value="Login">
     </form>
     <a href="register.php">Register Here!</a>
 </body>
@@ -27,9 +27,11 @@ session_start();
 </html>
 <?php
 if (isset($_POST["login"])) {
+    echo "Login attempt detected!<br>";
     if (isset($_SESSION["username"]) && isset($_SESSION["password"])) {
+        echo "Checking credentials...<br>";
         if ($_POST["username"] == $_SESSION["username"] && $_POST["password"] == $_SESSION["password"]) {
-            header('Location: /homepage.php');
+            header('Location: homepage.php');
             exit();
         } else {
             echo "Invalid credentials!";

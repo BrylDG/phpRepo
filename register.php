@@ -11,7 +11,7 @@ session_start();
 </head>
 
 <body>
-    <form action="register.php" method="$_GET">
+    <form action="register.php" method="get">
         <h1>Register</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
