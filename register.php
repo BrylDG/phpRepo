@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +11,7 @@
 </head>
 
 <body>
-    <form action="registerScript.php" method="$_GET">
+    <form action="register.php" method="$_GET">
         <h1>Register</h1>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -21,3 +24,14 @@
 </body>
 
 </html>
+<?php
+if (isset($_GET["register"])) {
+    if (isset($_GET["username"]) && isset($_GET["password"])) {
+        $_SESSION["username"] = $_GET["username"];
+        $_SESSION["password"] = $_GET["password"];
+        echo "Registration successful! Welcome, " . htmlspecialchars($_SESSION["username"]) . ".";
+    } else {
+        echo "Missing credentials!";
+    }
+}
+?>
