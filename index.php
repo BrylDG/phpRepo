@@ -1,4 +1,5 @@
 <?php
+    include("db.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -28,16 +29,19 @@ session_start();
 <?php
 if (isset($_POST["login"])) {
     echo "Login attempt detected!<br>";
-    if (isset($_SESSION["username"]) && isset($_SESSION["password"])) {
-        echo "Checking credentials...<br>";
-        if ($_POST["username"] == $_SESSION["username"] && $_POST["password"] == $_SESSION["password"]) {
-            header('Location: homepage.php');
-            exit();
-        } else {
-            echo "Invalid credentials!";
-        }
-    } else {
-        echo "Missing cridentials!";
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $sql = "SELECT * FROM account WHERE username = '$username'";
+
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    $databasPass = $row["password"];
+
+    if ($password === $databasPass) {
+        header('Location: homepage.php');
+        exit();
     }
 }
 ?>
