@@ -1,5 +1,6 @@
 <?php
-session_start();
+    include("db.php");
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +28,13 @@ session_start();
 <?php
 if (isset($_GET["register"])) {
     if (isset($_GET["username"]) && isset($_GET["password"])) {
-        $_SESSION["username"] = $_GET["username"];
-        $_SESSION["password"] = $_GET["password"];
-        echo "Registration successful! Welcome, " . htmlspecialchars($_SESSION["username"]) . ".";
+        $username = $_GET["username"];
+        $password = $_GET["password"];
+
+        $sql = "INSERT INTO account
+                VALUES ('$username', '$password')";
+        mysqli_query($conn, $sql);
+        echo "Registration successful! Welcome, " . htmlspecialchars($username) . ".";
         header('Location: index.php');
         exit();
     } else {

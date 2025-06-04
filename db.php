@@ -2,7 +2,7 @@
     $db_server = "localhost";
     $db_user = "root";
     $db_password = "";
-    $db_name = "attendance";
+    $db_name = "trial";
     $conn = "";
 
     try {
