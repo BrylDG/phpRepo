@@ -5,12 +5,15 @@
     $db_name = "attendance";
     $conn = "";
 
-    $conn = mysqli_connect($db_server, $db_user, $db_password, $db_name);
+    try {
+        $conn = mysqli_connect($db_server, $db_user, $db_password, $db_name);
+    }
+    catch(mysqli_sql_exception) {
+        echo "Not connected to database!";
+    }
+
 
     if($conn) {
         echo "Connected to database!";
-    }
-    else {
-        echo "Not connected to database!";
     }
 ?>
