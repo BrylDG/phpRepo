@@ -1,0 +1,39 @@
+<?php
+include("db.php");
+    session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments Managment</title>
+</head>
+<body>
+    <h1>Welcome to Departments Managment</h1>
+    <form action="departments.php" method="post">
+        <label>Code:</label>
+        <input type="text" id="deptCode" name="deptCode">
+        <label>Name:</label>
+        <input type="text" id="deptName" name="deptName">
+        <label>Head:</label>
+        <input type="text" id="deptHead" name="deptHead">
+        <label>Tel. No.:</label>
+        <input type="text" id="deptTelNo" name="deptTelNo">
+        <input type="submit" name="addDepartment" value="Add Department">
+    </form>
+</body>
+</html>
+<?php
+    if(isset($_POST["addDepartment"])) {
+        $code = $_POST["deptCode"];
+        $name = $_POST["deptName"];
+        $head = $_POST["deptHead"];
+        $telno = $_POST["deptTelNo"];
+
+        $sql = "INSERT INTO departments
+                VALUES ('$code', '$name', '$head', '$telno')";
+
+        mysqli_query($conn, $sql);
+    }
+?>
