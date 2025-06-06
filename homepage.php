@@ -11,7 +11,7 @@ session_start();
 </head>
 
 <body>
-    Welcome to the Home Page!
+    Welcome to the Home Page <?php echo $_SESSION["account"]?>!
 </body>
 
 </html>
