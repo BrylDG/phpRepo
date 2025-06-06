@@ -11,7 +11,12 @@ session_start();
 </head>
 
 <body>
-    Welcome to the Home Page <?php echo $_SESSION["account"]?>!
+    <h1>Welcome to the Home Page <?php echo $_SESSION["account"]?>!</h1>
+    <h4>Choose your transaction:</h4>
+    <a href="departments.php">Departments Managment</a>
+    <a href="">Employee Managment</a>
+    <a href="">Attendance Recording</a>
+    <a href="">Attendance Management</a>
 </body>
 
 </html>
