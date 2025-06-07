@@ -22,6 +22,25 @@ include("db.php");
         <input type="text" id="deptTelNo" name="deptTelNo">
         <input type="submit" name="addDepartment" value="Add Department">
     </form>
+
+    <?php
+        echo "<table style='border: solid 1px black'>";
+        echo "<tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Head
+                </th>
+                <th>
+                    Tel. No.
+                </th>
+              </tr>";
+        echo "</table>";
+    ?>
 </body>
 </html>
 <?php
@@ -35,5 +54,8 @@ include("db.php");
                 VALUES ('$code', '$name', '$head', '$telno')";
 
         mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        header("Location: departments.php");
+        exit();
     }
 ?>
