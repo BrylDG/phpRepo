@@ -55,7 +55,10 @@ include("db.php");
             echo "<td style='border: 1px solid black;'>{$row['depTelNo']}</td>";
             echo "<td style='border: 1px solid black;'>
                     <a href={$editpage}>Edit</a>
-                    <button>Delete</button>
+                    <form action='departments.php' method='post'>
+                        <input type='submit' name='delete' value='delete'>
+                        <input name='depCode' value='{$row['depCode']}' style='visibility: hidden;'>
+                    </form>
                   </td>";
         };
         echo "</table>";
@@ -71,6 +74,17 @@ include("db.php");
 
         $sql = "INSERT INTO departments
                 VALUES ('$code', '$name', '$head', '$telno')";
+
+        mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        header("Location: departments.php");
+        exit();
+    }
+
+    if(isset($_POST["delete"])) {
+        $code = $_POST["depCode"];
+
+        $sql = "DELETE FROM departments WHERE depCode = $code";
 
         mysqli_query($conn, $sql);
         mysqli_close($conn);
