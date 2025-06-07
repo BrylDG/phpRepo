@@ -38,17 +38,25 @@ include("db.php");
                 <th>
                     Tel. No.
                 </th>
+                <th>
+                    Action
+                </th>
               </tr>";
         $sql = "SELECT * FROM departments";
 
         $result = mysqli_query($conn, $sql);
         $datas = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $editpage = "updatedpartment.php";
         foreach($datas as $row) {
             echo "<tr>";
             echo "<td style='border: 1px solid black;'>{$row['depCode']}</td>";
             echo "<td style='border: 1px solid black;'>{$row['depName']}</td>";
             echo "<td style='border: 1px solid black;'>{$row['depHead']}</td>";
             echo "<td style='border: 1px solid black;'>{$row['depTelNo']}</td>";
+            echo "<td style='border: 1px solid black;'>
+                    <a href={$editpage}>Edit</a>
+                    <button>Delete</button>
+                  </td>";
         };
         echo "</table>";
     ?>
