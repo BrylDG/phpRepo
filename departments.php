@@ -39,6 +39,17 @@ include("db.php");
                     Tel. No.
                 </th>
               </tr>";
+        $sql = "SELECT * FROM departments";
+
+        $result = mysqli_query($conn, $sql);
+        $datas = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach($datas as $row) {
+            echo "<tr>";
+            echo "<td style='border: 1px solid black;'>{$row['depCode']}</td>";
+            echo "<td style='border: 1px solid black;'>{$row['depName']}</td>";
+            echo "<td style='border: 1px solid black;'>{$row['depHead']}</td>";
+            echo "<td style='border: 1px solid black;'>{$row['depTelNo']}</td>";
+        };
         echo "</table>";
     ?>
 </body>
