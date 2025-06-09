@@ -1,5 +1,25 @@
 <?php
     require_once("database.php");
+
+    if(isset($_POST["add"])) {
+        $code = $_POST["depCode"];
+        $name = $_POST["depName"];
+        $head = $_POST["depHead"];
+        $telno = $_POST["depTelNo"];
+        $sql = "INSERT INTO departments VALUES ('$code', '$name', '$head', '$telno')";
+
+        if(mysqli_query($conn, $sql)) {
+            echo "Succesfully added";
+            header("Location: departments.php");
+            exit();
+        } else {
+            echo "failed to add";
+        }
+
+        mysqli_close($conn);
+        header("Location: addDepartments.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
