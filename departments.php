@@ -33,8 +33,12 @@
                     echo "<td style='border: solid 1px black'>{$department["depHead"]}</td>";
                     echo "<td style='border: solid 1px black'>{$department["depTelNo"]}</td>";
                     echo "<td style='border: solid 1px black'>
-                            <a href={$page}>Edit</a>
-                            <form action='departments.php' method='post'>
+                            <form action='editDepartments.php' method='get'>
+                                <input type='hidden' name='depCode' value={$department["depCode"]}>
+                                <input type='submit' name='edit' value='edit'>
+                            </form>
+                            <form action='departments.php' method='get'>
+                                <input type='hidden' name='depCode' value={$department["depCode"]}>
                                 <input type='submit' name='delete' value='delete'>
                             </form>
                         </td>";
