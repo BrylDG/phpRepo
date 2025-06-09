@@ -10,5 +10,4 @@
     } else {
         echo "Not Connected to database.";
     }
-
 ?>
