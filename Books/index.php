@@ -1,7 +1,11 @@
 <?php
     require_once("db.php");
+    SESSION_START();
 
     $isbn = "";
+    if (!isset($_SESSION["searched"])) {
+        $_SESSION["searched"] = false;
+    }
 
     if(isset($_POST["add"])) {
         $isbn = $_POST["isbn"];
@@ -13,6 +17,9 @@
 
         $sql = "INSERT INTO books VALUES('$isbn', '$title', '$copyright', '$edition', '$price', '$quantity')";
         mysqli_query($conn, $sql);
+        mysqli_close($conn);
+        header("Location: index.php");
+        exit();
     }
 
     if(isset($_POST["search"])) {
@@ -20,9 +27,24 @@
 
         $sql = "SELECT * FROM books WHERE ISBN = $isbn";
         if ($book = mysqli_fetch_assoc(mysqli_query($conn, $sql))) {
-            echo "success";
+            $_SESSION["searched"] = true;
+            echo "{$_SESSION["searched"]}";
         } else {
             $book = ['ISBN' => '','title' => '','copyright' => '','edition' => '','price' => '', 'quantity' => ''];
+        }
+    }
+
+    if(isset($_POST["delete"])) {
+        if($_SESSION["searched"]) {
+            $isbn = $_POST["isbn"];
+            $sql = "DELETE FROM books where ISBN = $isbn";
+            mysqli_query($conn, $sql);
+            mysqli_close($conn);
+            $_SESSION["searched"] = false;
+            header("Location: index.php");
+            exit();
+        } else {
+            echo "search book first.";
         }
     }
 
@@ -40,17 +62,17 @@
             <form action="index.php" method="post">
                 <div class="input-field">
                     <label for="isbn">ISBN#</label>
-                    <input type="text" name="isbn" id="isbn" value="<?php echo isset($_POST['isbn']) ? $book['ISBN'] : ''; ?>" required>
+                    <input type="text" name="isbn" id="isbn" value="<?php echo isset($_POST['search']) ? $book['ISBN'] : ''; ?>">
                     <label for="isbn">Title:</label>
-                    <input type="text" name="title" id="title" value="<?php echo isset($_POST['isbn']) ? $book['title'] : ''; ?>">
+                    <input type="text" name="title" id="title" value="<?php echo isset($_POST['search']) ? $book['title'] : ''; ?>">
                     <label for="isbn">Copyright:</label>
-                    <input type="text" name="copyright" id="copyright" value="<?php echo isset($_POST['isbn']) ? $book['copyright'] : ''; ?>">
+                    <input type="text" name="copyright" id="copyright" value="<?php echo isset($_POST['search']) ? $book['copyright'] : ''; ?>">
                     <label for="isbn">Edition:</label>
-                    <input type="text" name="edition" id="edition" value="<?php echo isset($_POST['isbn']) ? $book['edition'] : ''; ?>">
+                    <input type="text" name="edition" id="edition" value="<?php echo isset($_POST['search']) ? $book['edition'] : ''; ?>">
                     <label for="isbn">Price</label>
-                    <input type="text" name="price" id="price" value="<?php echo isset($_POST['isbn']) ? $book['price'] : ''; ?>">
+                    <input type="text" name="price" id="price" value="<?php echo isset($_POST['search']) ? $book['price'] : ''; ?>">
                     <label for="isbn">Quantity</label>
-                    <input type="text" name="quantity" id="quantity" value="<?php echo isset($_POST['isbn']) ? $book['quantity'] : ''; ?>">
+                    <input type="text" name="quantity" id="quantity" value="<?php echo isset($_POST['search']) ? $book['quantity'] : ''; ?>">
                 </div>
                 <div class="button-field">
                     <input type="submit" id="search" name="search" value="search">
