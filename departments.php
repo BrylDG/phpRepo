@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Departments Management</h1>
-    <a href="addDepartment.php">Add a Department Here</a>
+    <a href="addDepartments.php">Add a Department Here</a>
     <a href="index.php">Back to Menu</a>
         <?php
             echo "<table style='border: solid 1px black'>";
