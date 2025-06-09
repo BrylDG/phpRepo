@@ -45,8 +45,20 @@
                         <th>Quantity</th>
                         <th>TOTAL</th>
                     </tr>
-
-                    
+                    <?php
+                        $sql = "SELECT * FROM books";
+                        $books = mysqli_fetch_assoc(mysqli_query($conn, $sql), MYSQLI_ASSOC);
+                        foreach($books as $book){
+                            echo "<tr>
+                                    <td style='border: solid 1px black'>{$book["isbn"]}</td>
+                                    <td style='border: solid 1px black'>{$book["title"]}</td>
+                                    <td style='border: solid 1px black'>{$book["copyright"]}</td>
+                                    <td style='border: solid 1px black'>{$book["edition"]}</td>
+                                    <td style='border: solid 1px black'>{$book["price"]}</td>
+                                    <td style='border: solid 1px black'>{$book["quantity"]}</td>
+                                  </tr>";
+                        }
+                    ?>
                 </table>
             </div>
         </div>
