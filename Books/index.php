@@ -2,9 +2,15 @@
     require_once("db.php");
     SESSION_START();
 
+
+
     $isbn = "";
+
     if (!isset($_SESSION["searched"])) {
         $_SESSION["searched"] = false;
+    }
+    if (!isset($_SESSION["searched"])) {
+            $_SESSION["message"] = "";
     }
 
     if(isset($_POST["add"])) {
@@ -28,6 +34,7 @@
         $sql = "SELECT * FROM books WHERE ISBN = $isbn";
         if ($book = mysqli_fetch_assoc(mysqli_query($conn, $sql))) {
             $_SESSION["searched"] = true;
+            $_SESSION["message"] = "naka search";
             echo "{$_SESSION["searched"]}";
         } else {
             $book = ['ISBN' => '','title' => '','copyright' => '','edition' => '','price' => '', 'quantity' => ''];
@@ -41,6 +48,7 @@
             mysqli_query($conn, $sql);
             mysqli_close($conn);
             $_SESSION["searched"] = false;
+            $_SESSION["message"] = "nag delete";
             header("Location: index.php");
             exit();
         } else {
@@ -96,7 +104,7 @@
                     <?php
                         $sql = "SELECT * FROM books";
                         $books = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
-                        foreach($books as $book){
+                        foreach ($books as $book) {
                             echo "<tr>
                                     <td style='border: solid 1px black'>{$book["ISBN"]}</td>
                                     <td style='border: solid 1px black'>{$book["title"]}</td>
@@ -104,12 +112,17 @@
                                     <td style='border: solid 1px black'>{$book["edition"]}</td>
                                     <td style='border: solid 1px black'>{$book["price"]}</td>
                                     <td style='border: solid 1px black'>{$book["quantity"]}</td>
-                                  </tr>";
+                                    <td style='border: solid 1px black'>" . ($book["quantity"] * $book["price"]) . "</td>
+                                </tr>";
                         }
                     ?>
                 </table>
             </div>
         </div>
+
+        <?php
+            echo $_SESSION["message"]; 
+        ?>
     </div>
 </body>
 </html>
