@@ -1,5 +1,13 @@
 <?php
     require_once("database.php");
+
+    if(isset($_POST["delete"])) {
+        $depCode = $_POST["depCode"];
+        $sql = "DELETE FROM departments WHERE depCode = $depCode";
+        mysqli_query($conn, $sql);
+        header("Location: departments.php");
+        mysqli_close($conn);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +45,7 @@
                                 <input type='hidden' name='depCode' value={$department["depCode"]}>
                                 <input type='submit' name='edit' value='edit'>
                             </form>
-                            <form action='departments.php' method='get'>
+                            <form action='departments.php' method='post'>
                                 <input type='hidden' name='depCode' value={$department["depCode"]}>
                                 <input type='submit' name='delete' value='delete'>
                             </form>
